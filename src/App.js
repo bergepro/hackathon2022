@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { getDesignTokens } from "./theme.ts";
+import Button from "@mui/material/Button/Button";
+import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
 
-function App() {
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+
+export default function App() {
+  const [mode, setMode] = React.useState < PaletteMode > "light";
+  const colorMode = React.useMemo(
+    () => ({
+      // The dark mode switch would invoke this method
+      toggleColorMode: () => {
+        setMode((prevMode: PaletteMode) =>
+          prevMode === "light" ? "dark" : "light"
+        );
+      },
+    }),
+    []
+  );
+
+  // Update the theme only if the mode changes
+  const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <>hallo</>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
-
-export default App;
