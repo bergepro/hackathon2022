@@ -1,32 +1,50 @@
-import * as React from "react";
-import { getDesignTokens } from "./theme.ts";
-import Button from "@mui/material/Button/Button";
-import { ThemeProvider, useTheme, createTheme } from "@mui/material/styles";
-
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
-
-export default function App() {
-  const [mode, setMode] = React.useState < PaletteMode > "light";
-  const colorMode = React.useMemo(
-    () => ({
-      // The dark mode switch would invoke this method
-      toggleColorMode: () => {
-        setMode((prevMode: PaletteMode) =>
-          prevMode === "light" ? "dark" : "light"
-        );
-      },
-    }),
-    []
-  );
-
-  // Update the theme only if the mode changes
-  const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+import React, { useState } from "react";
+// Project files
+import { getAds } from "./firebase";
+import Navbar from "./Containers/Navbar";
+import Main from "./Containers/Main";
+import Rentals from "./Containers/Rentals";
+// Mui/react
+import { Route, Routes } from "react-router";
+import { ThemeProvider, createTheme, Button } from "@mui/material";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { Box } from "@mui/system";
+import CssBaseline from "@mui/material/CssBaseline";
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const theme = createTheme({
+    palette: {
+      mode: darkMode ? "dark" : "light",
+    },
+  });
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <>hallo</>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Navbar />
+      <Routes>
+        <Route path="Main" element={<Main />} />
+
+        <Route path="rentals" element={<Rentals />} />
+      </Routes>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          onClick={() => {
+            setDarkMode(!darkMode);
+          }}
+        >
+          <DarkModeIcon />
+        </Button>
+      </Box>
+    </ThemeProvider>
   );
 }
+
+export default App;
