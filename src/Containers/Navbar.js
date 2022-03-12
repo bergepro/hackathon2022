@@ -14,13 +14,13 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import logo from "../assets/imgs/logo.png";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { withTheme } from "@mui/styles";
 import { useStateValue } from "../StateProvider";
 const pages = ["main", "Rentals", "login", "signup"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar(props) {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const handleOpenNavMenu = (event) => {
@@ -37,11 +37,7 @@ function Navbar(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  // THEME ENDRER SEG!!!:)))) men prop "darkMode" blir ikke satt skikkelig. context?
-  //
-  //
-  //
-  //
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -100,6 +96,7 @@ function Navbar(props) {
                   sx={{
                     my: 2,
                     display: "block",
+                    color: !props.darkMode && "#FFF",
                   }}
                 >
                   {page}
@@ -145,4 +142,4 @@ function Navbar(props) {
     </AppBar>
   );
 }
-export default Navbar;
+export default withTheme(Navbar);
