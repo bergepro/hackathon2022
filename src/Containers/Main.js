@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import Container from "@mui/material/Container";
 const Main = () => {
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Search />
       <Categories />
       <Feed />

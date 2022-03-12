@@ -1,5 +1,3 @@
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 
@@ -9,7 +7,6 @@ function AdImage(props) {
       sx={{
         alignItems: "center",
         justifyContent: "center",
-        width: 240,
         margin: "20px",
         display: "flex",
         flexDirection: "column",
@@ -18,9 +15,8 @@ function AdImage(props) {
       }}
     >
       <img
-        width="100%"
-        margin="200px"
-        height="100%"
+        width="240px"
+        height="200px"
         style={{
           borderRadius: "10px",
           marginBottom: "-24px",
@@ -30,7 +26,7 @@ function AdImage(props) {
         alt={props.title}
       />
       <Typography position="relative" color="white">
-        {props.price}
+        {props.price},- /{props.duration}
       </Typography>
     </Box>
   );
@@ -47,14 +43,17 @@ function Ad(props) {
   return (
     <Box
       sx={{
-        maxWidth: "100%",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
         display: "flex",
         flexDirection: "column",
       }}
     >
-      <AdImage price={props.price} img={props.img}></AdImage>
+      <AdImage
+        price={props.price}
+        duration={props.duration}
+        img={props.img}
+      ></AdImage>
       <AdTitle title={props.title}> </AdTitle>
     </Box>
   );

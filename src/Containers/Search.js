@@ -26,18 +26,6 @@ export default function FreeSoloCreateOption() {
       filterOptions={(options, params) => {
         const filtered = filter(options, params);
 
-        const { inputValue } = params;
-        // Suggest the creation of a new value
-        const isExisting = options.some(
-          (option) => inputValue === option.title
-        );
-        if (inputValue !== "" && !isExisting) {
-          filtered.push({
-            inputValue,
-            title: `Add "${inputValue}"`,
-          });
-        }
-
         return filtered;
       }}
       selectOnFocus
@@ -58,14 +46,14 @@ export default function FreeSoloCreateOption() {
         return option.title;
       }}
       renderOption={(props, option) => <li {...props}>{option.title}</li>}
-      sx={{ width: "100%", paddingTop: "15px" }}
+      sx={{ width: "100%", padding: "30px", alignSelf: "center" }}
       freeSolo
       renderInput={(params) => <TextField {...params} label="Categories" />}
     />
   );
 } // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const Items = [
-  { title: "The Shawshank Redemption", year: 1994, category: "Movie" },
-  { title: "3 Idiots", year: 2009, category: "" },
-  { title: "Monty Python and the Holy Grail", year: 1975 },
+  { title: "Cars" },
+  { title: "Motorcycles" },
+  { title: "Instruments" },
 ];

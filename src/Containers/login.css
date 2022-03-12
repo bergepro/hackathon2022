@@ -1,0 +1,33 @@
+
+.login {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    background-color: rgb(222,222,222);
+}
+
+.login > div {
+    display:flex;
+    flex-direction: column;
+}
+
+
+
+.login > button {
+    width:300px;
+    background-color:rgb(97,69,81);
+    color:rgb(226,226,226);
+    margin: 0px 0px 200px 0px
+}
+
+
+.login > button:hover {
+    background-color:rgb(97,69,81);
+    color:rgb(226,226,226);
+
+    background-color: rgb(255,190,192);
+    color:rgb(107,79,91)
+}
+.webdesign {
+    bottom:1px;
+}

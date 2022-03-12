@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,13 +13,16 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-const pages = ["main", "Rentals"];
+import logo from "../assets/imgs/logo.png";
+import { createTheme, ThemeProvider } from "@mui/material";
+import { useStateValue } from "../StateProvider";
+const pages = ["main", "Rentals", "login", "signup"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const Navbar = () => {
+function Navbar(props) {
+  const [{ user }, dispatch] = useStateValue();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -33,19 +37,16 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  // THEME ENDRER SEG!!!:)))) men prop "darkMode" blir ikke satt skikkelig. context?
+  //
+  //
+  //
+  //
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            LOGO
-          </Typography>
+          <img src={logo} style={{ width: "80px" }} alt="logo" />
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -85,21 +86,21 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            LOGO
-          </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link to={`/${page}`} style={{ textDecoration: "none" }}>
+              <Link
+                to={`/${page}`}
+                key={page}
+                style={{ textDecoration: "none" }}
+              >
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{
+                    my: 2,
+                    display: "block",
+                  }}
                 >
                   {page}
                 </Button>
@@ -110,7 +111,10 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="Avatar"
+                  src={user ? user.photoURL : "/static/images/avatar/2.jpg"}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -140,5 +144,5 @@ const Navbar = () => {
       </Container>
     </AppBar>
   );
-};
+}
 export default Navbar;
